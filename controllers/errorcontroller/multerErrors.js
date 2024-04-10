@@ -9,7 +9,7 @@ const handleMulterErrors = (err, req, res, next) => {
     });
   } else if (err.code === 'LIMIT_FILE_SIZE') {
     // Handle Multer file size limit exceeded error
-    const fileSizeError = new AppError('File size limit exceeded. Please upload a smaller image', 400);
+    const fileSizeError = new AppError('File size limit exceeded. Please upload a smaller image less than 5MB', 400);
     res.status(fileSizeError.statusCode).json({
       status: fileSizeError.status,
       message: fileSizeError.message,
