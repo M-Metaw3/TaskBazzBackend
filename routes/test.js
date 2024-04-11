@@ -33,13 +33,9 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 
-// Redirect user to Google authentication
-router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+const { registerWithGoogle, registerWithFacebook, googleCallback, facebookCallback, generateJWT } = require('../controllers/authController/authcontroller');
 
-// Google authentication callback
-// router.get('/auth/google/callback', passport.authenticate('google', {
-//   successRedirect: '/', // Redirect on successful authentication
-//   failureRedirect: '/login' // Redirect on failure
-// }));
+router.get('/google', registerWithGoogle);
+router.get('/google/callback', googleCallback, generateJWT);
 
 module.exports = router;

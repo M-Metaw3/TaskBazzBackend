@@ -8,15 +8,20 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  User.findById(id, (err, user) => {
-    done(err, user);
-  });
+  User.findById(id)
+    .then(user => {
+      done(null, user);
+    })
+    .catch(err => {
+      done(err, null);
+    });
 });
 
+
 passport.use(new GoogleStrategy({
-    clientID: '777231596450-vdvu1nb3216le7pvejgkujnekprobinu.apps.googleusercontent.com',
-    clientSecret: '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',
-    callbackURL: 'http://localhost:8000/auth/google/callback'
+    clientID:process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL:process.env.GOOGLE_CLIENT_REDIRECT_URI 
   },
   async (accessToken, refreshToken, profile, done) => {
     try {

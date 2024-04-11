@@ -10,6 +10,7 @@ const userRouter = require('./routes/test');
 
 const app = express();
 const handleMulterErrors = require('./controllers/errorcontroller/multerErrors');
+const { googleCallback, generateJWT } = require('./controllers/authcontroller/authcontroller');
 // 1) MIDDLEWARES
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
@@ -31,11 +32,21 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 // 3) ROUTES
-app.get('/auth/google/callback', passport.authenticate('google', {
-  successRedirect: '/dashboard', // Redirect on successful authentication
-  failureRedirect: '/login' // Redirect on failure
-}));
+// app.get('/auth/google/callback', passport.authenticate('google', {
+//   successRedirect: '/dashboard', // Redirect on successful authentication
+//   failureRedirect: '/login' // Redirect on failure
+// }));
+
+
+app.get('/auth/google/callback', googleCallback, generateJWT);
+
 app.use('/api/v1/users', userRouter);
+app.get('/',  (req, res, next) => {
+res.status(200).json({
+  status: 'success',
+  message: 'Welcome to the tour API'
+})});
+
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
