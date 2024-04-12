@@ -7,6 +7,8 @@ const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorcontroller/errorController');
 // const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/test');
+const role_and_permissions = require('./routes/RoleAndPermisionsroute');
+
 
 const app = express();
 const handleMulterErrors = require('./controllers/errorcontroller/multerErrors');
@@ -41,11 +43,7 @@ app.use(passport.session());
 app.get('/auth/google/callback', googleCallback, generateJWT);
 
 app.use('/api/v1/users', userRouter);
-app.get('/',  (req, res, next) => {
-res.status(200).json({
-  status: 'success',
-  message: 'Welcome to the tour API'
-})});
+app.use('/api/v1/role',  role_and_permissions);
 
 
 app.all('*', (req, res, next) => {

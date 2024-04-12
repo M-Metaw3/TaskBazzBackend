@@ -32,10 +32,13 @@
 const express = require('express');
 const passport = require('passport');
 const router = express.Router();
-
-const { registerWithGoogle, registerWithFacebook, googleCallback, facebookCallback, generateJWT } = require('../controllers/authController/authcontroller');
+const uservalidation = require('../validations/Uservalidation/uservalidation');
+const joifunctions = require('../validations/mainjoivalidations');
+const { registerWithGoogle, registerWithFacebook, googleCallback, facebookCallback, generateJWT,signup } = require('../controllers/authController/authcontroller');
 
 router.get('/google', registerWithGoogle);
+router.post('/', joifunctions(uservalidation), signup);
+
 router.get('/google/callback', googleCallback, generateJWT);
 
 module.exports = router;

@@ -1,4 +1,8 @@
 const passport = require('passport');
+const uservalidation = require('../../validations/Uservalidation/uservalidation');
+const joifunctions = require('../../validations/mainjoivalidations');
+
+
 
 const crypto = require('crypto');
 // const { promisify } = require('util');
@@ -42,7 +46,12 @@ const createSendToken = (user, statusCode, res) => {
   });
 };
 
-exports.signup = catchAsync(async (req, res, next) => {
+const signup = catchAsync(async (req, res, next) => {
+
+
+
+
+
   const newUser = await User.create({
     name: req.body.name,
     email: req.body.email,
@@ -91,8 +100,9 @@ async function facebookCallback(req, res, next) {
 }
 
 async function generateJWT(req, res) {
+  console.log(`Method: ${req.method}, API: ${req.originalUrl}`);
   createSendToken(req.user, 201, res);
   return;
 }
 
-module.exports = { registerWithGoogle, registerWithFacebook, googleCallback, generateJWT,facebookCallback };
+module.exports = { registerWithGoogle, registerWithFacebook, googleCallback, generateJWT,signup,facebookCallback };
