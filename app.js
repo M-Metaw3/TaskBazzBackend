@@ -8,6 +8,8 @@ const globalErrorHandler = require('./controllers/errorcontroller/errorControlle
 // const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/test');
 const role_and_permissions = require('./routes/RoleAndPermisionsroute');
+const CategoryRoute = require('./routes/CategoryRoute');
+
 
 
 const app = express();
@@ -43,6 +45,8 @@ app.use(passport.session());
 app.get('/auth/google/callback', googleCallback, generateJWT);
 
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/category', CategoryRoute);
+
 app.use('/api/v1/role',  role_and_permissions);
 
 

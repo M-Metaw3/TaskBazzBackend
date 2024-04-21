@@ -1,0 +1,11 @@
+const jwt = require('jsonwebtoken');
+const CategorySchema = require('../../models/categoryModel');
+const AppError = require('../../utils/appError');
+require('../../utils/passport');
+const catchAsync = require('../../utils/catchAsync');
+const factory = require('../../utils/apiFactory');
+exports.getAllCategory = factory.getAll(CategorySchema);
+exports.getCategory = factory.getOne(CategorySchema);
+exports.createCategory = factory.createOne(CategorySchema);
+exports.updateCategory = factory.updateOne(CategorySchema);
+exports.deleteCategory = factory.deleteOne(CategorySchema);

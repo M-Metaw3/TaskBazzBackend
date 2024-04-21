@@ -1,9 +1,9 @@
 const Joi = require('joi');
 const Apperror=require('../utils/apperror')
 // Function to validate an object using Joi schema
-const validateObject = (schema) => {
-return (req, res, next) => {
-    const { error } = schema.validate(req.body);
+const validateObject =  (schema) => {
+return async(req, res, next) => {
+    const { error } = await schema.validate(req.body);
     if (error) {
      return   next(new Apperror(error.details[0].message, 400));
         
