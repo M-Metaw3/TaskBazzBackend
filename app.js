@@ -9,6 +9,10 @@ const globalErrorHandler = require('./controllers/errorcontroller/errorControlle
 const userRouter = require('./routes/test');
 const role_and_permissions = require('./routes/RoleAndPermisionsroute');
 const CategoryRoute = require('./routes/CategoryRoute');
+const ServicesRoute = require('./routes/ServicesRoute');
+const ReviewRoute = require('./routes/ReviewsRoute');
+
+
 
 
 
@@ -46,7 +50,8 @@ app.get('/auth/google/callback', googleCallback, generateJWT);
 
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/category', CategoryRoute);
-
+app.use('/api/v1/services', ServicesRoute);
+app.use('/api/v1/reviews', ReviewRoute);
 app.use('/api/v1/role',  role_and_permissions);
 
 

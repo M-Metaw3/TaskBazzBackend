@@ -1,0 +1,11 @@
+const jwt = require('jsonwebtoken');
+const servicesSchema = require('../../models/servicesModel');
+const AppError = require('../../utils/appError');
+require('../../utils/passport');
+const catchAsync = require('../../utils/catchAsync');
+const factory = require('../../utils/apiFactory');
+exports.getAllservices = factory.getAll(servicesSchema);
+exports.getservices = factory.getOne(servicesSchema);
+exports.createservices = factory.createOne(servicesSchema);
+exports.updateservices = factory.updateOne(servicesSchema);
+exports.deleteservices = factory.deleteOne(servicesSchema);
